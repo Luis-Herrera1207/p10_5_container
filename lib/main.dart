@@ -1,41 +1,98 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // Application name
-      title: 'Flutter Hello World',
-      // Application theme data, you can set the colors for the application as
-      // you want
-      theme: ThemeData(
-        // useMaterial3: false,
-        primarySwatch: Colors.blue,
+      debugShowCheckedModeBanner: false, // Elimina el banner de depuración
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text("Luis Herrera 1207 6-J"),
+          centerTitle: true,
+          titleTextStyle: TextStyle(color: Color(0xff000000), fontSize: 20),
+          backgroundColor: Color(0x005e3500),
+        ),
+        body: Center(
+          child: iPhoneFrame(
+            // Envuelve el contenido en el marco de iPhone
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.8,
+              height: MediaQuery.of(context).size.height * 0.7,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border.all(color: Colors.black12),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: Colors.blue[100],
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        topRight: Radius.circular(10),
+                      ),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'CONTAINER DECORATION',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Center(
+                      child: Container(
+                        padding: EdgeInsets.all(15),
+                        decoration: BoxDecoration(
+                          color: Colors.blue[200],
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Text(
+                          'I am a container',
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
       ),
-      // A widget which will be started on application startup
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  final String title;
-  const MyHomePage({super.key, required this.title});  
+// Widget para el marco de iPhone
+class iPhoneFrame extends StatelessWidget {
+  final Widget child;
+
+  iPhoneFrame({required this.child});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        // The title text which will be shown on the action bar
-        title: Text(title),
+    return Container(
+      width: 400, // Ancho del marco del iPhone
+      height: 800, // Alto del marco del iPhone
+      decoration: BoxDecoration(
+        color: Colors.black,
+        borderRadius: BorderRadius.circular(40), // Bordes redondeados del marco
       ),
-      body: Center(
-        child: Text(
-          'Hello, World!',
+      child: ClipRRect(
+        borderRadius:
+            BorderRadius.circular(40), // Recorta el contenido al marco
+        child: Padding(
+          padding: EdgeInsets.all(10), // Espacio entre el marco y el contenido
+          child: child,
         ),
       ),
     );
